@@ -8,123 +8,108 @@
 <body>
 
 <!-- Page Header -->
-<div class="page-header d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h1 class="h3 mb-1 fw-bold">Users</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/dashboard">Home</a></li>
-                <li class="breadcrumb-item active">Users</li>
-            </ol>
-        </nav>
+        <h1 class="h4 font-weight-bold text-dark mb-1 fw-bold">User Directory</h1>
+        <p class="text-muted small mb-0">Manage system user accounts, assigned roles and access status.</p>
     </div>
     <a href="${pageContext.request.contextPath}/admin/users/create" class="btn btn-primary">
-        <i class="bi bi-person-plus me-2"></i>Add User
+        <i class="bi bi-person-plus me-1"></i> Add User
     </a>
 </div>
 
 <!-- Flash Messages -->
 <c:if test="${not empty successMessage}">
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
         <i class="bi bi-check-circle-fill me-2"></i>${successMessage}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 </c:if>
 <c:if test="${not empty errorMessage}">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <i class="bi bi-exclamation-triangle-fill me-2"></i>${errorMessage}
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-exclamation-circle-fill me-2"></i>${errorMessage}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 </c:if>
 
-<!-- Search Card -->
-<div class="card mb-4">
-    <div class="card-body">
-        <form action="${pageContext.request.contextPath}/admin/users" method="get" class="row g-3 align-items-end">
-            <div class="col-md-6">
-                <label for="keyword" class="form-label">Search</label>
+<!-- Filter & Table Card -->
+<div class="card">
+    <div class="card-header bg-white border-bottom p-3">
+        <form action="${pageContext.request.contextPath}/admin/users" method="get" class="row g-2 align-items-center">
+            <div class="col-md-5">
                 <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-search"></i></span>
-                    <input type="text" class="form-control" id="keyword" name="keyword"
-                           placeholder="Search by username, name, or email..." value="${keyword}">
+                    <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control border-start-0 ps-0" id="keyword" name="keyword"
+                           placeholder="Search username, full name, or email..." value="${keyword}">
                 </div>
             </div>
             <div class="col-md-2">
-                <label for="size" class="form-label">Per page</label>
-                <select class="form-select" id="size" name="size">
-                    <option value="5" ${pageSize == 5 ? 'selected' : ''}>5</option>
-                    <option value="10" ${pageSize == 10 ? 'selected' : ''}>10</option>
-                    <option value="20" ${pageSize == 20 ? 'selected' : ''}>20</option>
-                    <option value="50" ${pageSize == 50 ? 'selected' : ''}>50</option>
+                <select class="form-select" id="size" name="size" onchange="this.form.submit()">
+                    <option value="5" ${pageSize == 5 ? 'selected' : ''}>5 per page</option>
+                    <option value="10" ${pageSize == 10 ? 'selected' : ''}>10 per page</option>
+                    <option value="20" ${pageSize == 20 ? 'selected' : ''}>20 per page</option>
                 </select>
             </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary w-100">
-                    <i class="bi bi-search me-1"></i>Search
+            <div class="col-md-5 text-end">
+                <button type="submit" class="btn btn-primary me-1">
+                    Search
                 </button>
-            </div>
-            <div class="col-md-2">
-                <a href="${pageContext.request.contextPath}/admin/users" class="btn btn-outline-secondary w-100">
-                    <i class="bi bi-x-circle me-1"></i>Clear
-                </a>
+                <c:if test="${not empty keyword}">
+                    <a href="${pageContext.request.contextPath}/admin/users" class="btn btn-light">
+                        Reset
+                    </a>
+                </c:if>
             </div>
         </form>
     </div>
-</div>
 
-<!-- Users Table -->
-<div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title mb-0">
-            <i class="bi bi-people me-2"></i>User List
-        </h5>
-        <span class="badge bg-primary rounded-pill">${totalElements} records</span>
-    </div>
     <div class="card-body p-0">
         <c:choose>
             <c:when test="${empty users}">
                 <div class="text-center py-5">
-                    <i class="bi bi-people display-3 text-muted"></i>
-                    <p class="text-muted mt-3">No users found.
-                        <c:if test="${not empty keyword}">Try a different search term.</c:if>
-                    </p>
+                    <div class="stat-icon stat-icon-emerald mx-auto mb-3" style="width:56px; height:56px; font-size:1.5rem;">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h6 class="fw-semibold mb-1">No users found</h6>
+                    <p class="text-muted small mb-3">Try refining your search keyword or create a new user account.</p>
                     <a href="${pageContext.request.contextPath}/admin/users/create" class="btn btn-primary btn-sm">
-                        <i class="bi bi-person-plus me-1"></i>Add First User
+                        <i class="bi bi-person-plus me-1"></i> Add User
                     </a>
                 </div>
             </c:when>
             <c:otherwise>
                 <div class="table-responsive">
-                    <table class="table table-hover admin-table mb-0">
+                    <table class="table table-clean">
                         <thead>
                             <tr>
-                                <th width="50">#</th>
+                                <th width="60">#</th>
                                 <th width="80">ID</th>
-                                <th>Username</th>
-                                <th>Full Name</th>
+                                <th>User Info</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th width="100">Status</th>
-                                <th width="130">Created At</th>
-                                <th width="130" class="text-center">Actions</th>
+                                <th width="110">Status</th>
+                                <th width="160">Created Date</th>
+                                <th width="120" class="text-end">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="user" items="${users}" varStatus="status">
                                 <tr>
-                                    <td>${currentPage * pageSize + status.index + 1}</td>
-                                    <td><span class="badge bg-secondary">${user.id}</span></td>
-                                    <td class="fw-medium"><c:out value="${user.username}"/></td>
-                                    <td><c:out value="${user.fullName}"/></td>
-                                    <td class="text-muted small"><c:out value="${user.email}"/></td>
+                                    <td class="text-muted">${currentPage * pageSize + status.index + 1}</td>
+                                    <td><span class="badge badge-soft-secondary">#${user.id}</span></td>
+                                    <td>
+                                        <div class="fw-semibold text-dark"><c:out value="${user.fullName}"/></div>
+                                        <small class="text-muted">@<c:out value="${user.username}"/></small>
+                                    </td>
+                                    <td class="text-muted"><c:out value="${user.email}"/></td>
                                     <td>
                                         <c:forEach var="role" items="${user.roles}">
                                             <c:choose>
                                                 <c:when test="${role.name == 'ROLE_ADMIN'}">
-                                                    <span class="badge bg-danger">${role.name}</span>
+                                                    <span class="badge badge-soft-primary me-1">${role.name}</span>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <span class="badge bg-info">${role.name}</span>
+                                                    <span class="badge badge-soft-secondary me-1">${role.name}</span>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
@@ -132,22 +117,22 @@
                                     <td>
                                         <c:choose>
                                             <c:when test="${user.enabled}">
-                                                <span class="badge bg-success">Active</span>
+                                                <span class="badge badge-soft-success">Active</span>
                                             </c:when>
                                             <c:otherwise>
-                                                <span class="badge bg-secondary">Disabled</span>
+                                                <span class="badge badge-soft-secondary">Disabled</span>
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
                                     <td class="text-muted small">
                                         ${user.createdAt != null ? user.createdAt.toString().replace('T', ' ').substring(0, 16) : '—'}
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-end">
                                         <a href="${pageContext.request.contextPath}/admin/users/edit/${user.id}"
-                                           class="btn btn-sm btn-outline-primary me-1" title="Edit">
+                                           class="btn btn-sm btn-soft-primary me-1" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                        <button type="button" class="btn btn-sm btn-soft-danger"
                                                 title="Delete"
                                                 onclick="confirmDelete('${pageContext.request.contextPath}/admin/users/delete/${user.id}', '${user.username}')">
                                             <i class="bi bi-trash"></i>
@@ -159,11 +144,10 @@
                     </table>
                 </div>
 
-                <!-- Pagination -->
-                <div class="card-footer d-flex justify-content-between align-items-center">
+                <!-- Pagination Footer -->
+                <div class="p-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <small class="text-muted">
-                        Showing ${currentPage * pageSize + 1}–${(currentPage + 1) * pageSize > totalElements ? totalElements : (currentPage + 1) * pageSize}
-                        of ${totalElements} records
+                        Showing <strong>${currentPage * pageSize + 1}</strong> to <strong>${(currentPage + 1) * pageSize > totalElements ? totalElements : (currentPage + 1) * pageSize}</strong> of <strong>${totalElements}</strong> users
                     </small>
                     <c:if test="${totalPages > 1}">
                         <nav>
@@ -171,7 +155,7 @@
                                 <li class="page-item ${currentPage == 0 ? 'disabled' : ''}">
                                     <a class="page-link"
                                        href="${pageContext.request.contextPath}/admin/users?keyword=${keyword}&page=${currentPage - 1}&size=${pageSize}">
-                                        <i class="bi bi-chevron-left"></i>
+                                        Prev
                                     </a>
                                 </li>
                                 <c:forEach begin="0" end="${totalPages - 1}" var="i">
@@ -187,7 +171,7 @@
                                 <li class="page-item ${currentPage >= totalPages - 1 ? 'disabled' : ''}">
                                     <a class="page-link"
                                        href="${pageContext.request.contextPath}/admin/users?keyword=${keyword}&page=${currentPage + 1}&size=${pageSize}">
-                                        <i class="bi bi-chevron-right"></i>
+                                        Next
                                     </a>
                                 </li>
                             </ul>
@@ -202,23 +186,21 @@
 <!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-0">
-                <h5 class="modal-title fw-bold">
-                    <i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Confirm Delete
-                </h5>
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 14px;">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-dark">Confirm Delete</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete user <strong id="deleteItemName"></strong>?</p>
-                <p class="text-muted small mb-0">This action cannot be undone.</p>
+            <div class="modal-body py-3">
+                <p class="mb-1 text-secondary">Are you sure you want to delete user <strong id="deleteItemName" class="text-dark"></strong>?</p>
+                <p class="text-muted small mb-0">This operation cannot be undone.</p>
             </div>
-            <div class="modal-footer border-0">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
                 <form id="deleteForm" method="post">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-danger">
-                        <i class="bi bi-trash me-1"></i>Delete
+                        Delete User
                     </button>
                 </form>
             </div>

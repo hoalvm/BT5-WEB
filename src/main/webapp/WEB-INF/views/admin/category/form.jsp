@@ -7,56 +7,48 @@
 </head>
 <body>
 
-<!-- Page Header -->
-<div class="page-header d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h1 class="h3 mb-1 fw-bold">${isEdit ? 'Edit Category' : 'Add Category'}</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/dashboard">Home</a></li>
-                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/categories">Categories</a></li>
-                <li class="breadcrumb-item active">${isEdit ? 'Edit' : 'Add'}</li>
-            </ol>
-        </nav>
+        <h1 class="h4 font-weight-bold text-dark mb-1 fw-bold">${isEdit ? 'Edit Category' : 'Add New Category'}</h1>
+        <p class="text-muted small mb-0">Fill in the details below to ${isEdit ? 'update the' : 'create a new'} category.</p>
     </div>
+    <a href="${pageContext.request.contextPath}/admin/categories" class="btn btn-light">
+        <i class="bi bi-arrow-left me-1"></i> Back to Categories
+    </a>
 </div>
 
-<div class="row justify-content-center">
-    <div class="col-lg-7">
+<div class="row">
+    <div class="col-lg-8 col-xl-7">
         <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">
-                    <i class="bi bi-${isEdit ? 'pencil' : 'plus-circle'} me-2"></i>
-                    ${isEdit ? 'Edit Category' : 'New Category'}
-                </h5>
+            <div class="card-header bg-white border-bottom py-3">
+                <h5 class="card-title mb-0">${isEdit ? 'Category Details' : 'Category Information'}</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body p-4">
                 <c:set var="actionUrl" value="${pageContext.request.contextPath}/admin/categories/${isEdit ? 'edit/' : 'create'}${isEdit ? category.id : ''}"/>
                 <form:form action="${actionUrl}" method="post" modelAttribute="category">
 
                     <div class="mb-3">
-                        <label for="name" class="form-label fw-medium">
+                        <label for="name" class="form-label">
                             Category Name <span class="text-danger">*</span>
                         </label>
                         <form:input path="name" cssClass="form-control" id="name"
-                                    placeholder="Enter category name"/>
-                        <form:errors path="name" cssClass="invalid-feedback d-block" element="div"/>
+                                    placeholder="e.g. Technology, Mobile Devices"/>
+                        <form:errors path="name" cssClass="invalid-feedback d-block mt-1" element="div"/>
                     </div>
 
                     <div class="mb-4">
-                        <label for="description" class="form-label fw-medium">Description</label>
+                        <label for="description" class="form-label">Description</label>
                         <form:textarea path="description" cssClass="form-control" id="description"
-                                       rows="4" placeholder="Enter category description (optional)"/>
-                        <form:errors path="description" cssClass="invalid-feedback d-block" element="div"/>
+                                       rows="4" placeholder="Brief description about this category..."/>
+                        <form:errors path="description" cssClass="invalid-feedback d-block mt-1" element="div"/>
                     </div>
 
-                    <div class="d-flex gap-2">
+                    <div class="d-flex gap-2 pt-2">
                         <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-${isEdit ? 'check2' : 'plus-circle'} me-2"></i>
-                            ${isEdit ? 'Update Category' : 'Create Category'}
+                            ${isEdit ? 'Save Changes' : 'Create Category'}
                         </button>
-                        <a href="${pageContext.request.contextPath}/admin/categories" class="btn btn-outline-secondary">
-                            <i class="bi bi-x-circle me-2"></i>Cancel
+                        <a href="${pageContext.request.contextPath}/admin/categories" class="btn btn-light">
+                            Cancel
                         </a>
                     </div>
 

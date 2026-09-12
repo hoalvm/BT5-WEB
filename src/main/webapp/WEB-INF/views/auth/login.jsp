@@ -5,139 +5,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Admin Panel</title>
+    <title>Sign In | Admin Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { font-family: 'Inter', sans-serif; }
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #334155;
+            padding: 1.5rem;
         }
         .login-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            background-color: #ffffff;
+            border-radius: 16px;
             padding: 2.5rem;
             width: 100%;
-            max-width: 420px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+        }
+        .brand-badge {
+            background-color: #eef2ff;
+            color: #4f46e5;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
         .login-title {
-            color: #fff;
-            font-size: 1.8rem;
+            color: #0f172a;
+            font-size: 1.5rem;
             font-weight: 700;
-            text-align: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
         .login-subtitle {
-            color: rgba(255,255,255,0.5);
-            text-align: center;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-bottom: 1.75rem;
+        }
+        .form-label {
+            font-weight: 600;
+            font-size: 0.825rem;
+            color: #1e293b;
+            margin-bottom: 0.35rem;
         }
         .form-control {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
-            color: #fff;
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 0.65rem 0.875rem;
+            font-size: 0.875rem;
+            transition: all 0.15s ease;
         }
         .form-control:focus {
-            background: rgba(255,255,255,0.12);
-            border-color: #6366f1;
-            color: #fff;
-            box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25);
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
         }
-        .form-control::placeholder { color: rgba(255,255,255,0.35); }
-        .form-label { color: rgba(255,255,255,0.8); font-size: 0.875rem; font-weight: 500; }
-        .btn-login {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border: none;
-            border-radius: 10px;
-            padding: 0.75rem;
+        .btn-submit {
+            background-color: #4f46e5;
+            border-color: #4f46e5;
+            color: #ffffff;
+            border-radius: 8px;
+            padding: 0.7rem;
             font-weight: 600;
-            color: #fff;
+            font-size: 0.9rem;
             width: 100%;
-            transition: all 0.3s ease;
+            transition: all 0.15s ease;
         }
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
-            color: #fff;
+        .btn-submit:hover {
+            background-color: #4338ca;
+            border-color: #4338ca;
+            color: #ffffff;
         }
-        .brand-icon {
-            text-align: center;
-            margin-bottom: 1.5rem;
+        .alert {
+            border-radius: 8px;
+            font-size: 0.85rem;
+            padding: 0.75rem 1rem;
         }
-        .brand-icon i {
-            font-size: 3rem;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .input-group-text {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
-            color: rgba(255,255,255,0.5);
-            border-radius: 10px 0 0 10px;
-        }
-        .input-group .form-control { border-radius: 0 10px 10px 0; }
-        .alert { border-radius: 10px; font-size: 0.875rem; }
     </style>
 </head>
 <body>
-    <div class="login-card">
-        <div class="brand-icon">
-            <i class="bi bi-shield-check"></i>
+    <div class="login-card text-center">
+        <div class="brand-badge">
+            <i class="bi bi-layers-fill"></i>
         </div>
-        <h1 class="login-title">Admin Panel</h1>
-        <p class="login-subtitle">Sign in to your account</p>
+        <h1 class="login-title">Welcome back</h1>
+        <p class="login-subtitle">Please enter your credentials to sign in</p>
 
         <c:if test="${param.error != null}">
-            <div class="alert alert-danger d-flex align-items-center" role="alert">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <div class="alert alert-danger text-start d-flex align-items-center mb-3" role="alert">
+                <i class="bi bi-exclamation-circle-fill me-2"></i>
                 Invalid username or password.
             </div>
         </c:if>
 
         <c:if test="${param.logout != null}">
-            <div class="alert alert-success d-flex align-items-center" role="alert">
+            <div class="alert alert-success text-start d-flex align-items-center mb-3" role="alert">
                 <i class="bi bi-check-circle-fill me-2"></i>
-                You have been logged out successfully.
+                You have been logged out.
             </div>
         </c:if>
 
-        <form action="${pageContext.request.contextPath}/login" method="post">
+        <form action="${pageContext.request.contextPath}/login" method="post" class="text-start">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-person"></i></span>
-                    <input type="text" class="form-control" id="username" name="username"
-                           placeholder="Enter username" required autofocus>
-                </div>
+                <input type="text" class="form-control" id="username" name="username"
+                       placeholder="admin" required autofocus>
             </div>
 
             <div class="mb-4">
                 <label for="password" class="form-label">Password</label>
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                    <input type="password" class="form-control" id="password" name="password"
-                           placeholder="Enter password" required>
-                </div>
+                <input type="password" class="form-control" id="password" name="password"
+                       placeholder="••••••••" required>
             </div>
 
-            <button type="submit" class="btn btn-login">
-                <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+            <button type="submit" class="btn btn-submit mb-3">
+                Sign In
             </button>
+            
+            <p class="text-muted small mb-0 text-center">Development Account: <strong>admin</strong> / <strong>admin123</strong></p>
         </form>
     </div>
 
