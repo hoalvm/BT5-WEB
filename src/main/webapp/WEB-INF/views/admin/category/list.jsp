@@ -7,14 +7,14 @@
 </head>
 <body>
 
-<!-- Page Header -->
-<div class="d-flex justify-content-between align-items-center mb-4">
+<!-- Header Banner -->
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
     <div>
-        <h1 class="h4 font-weight-bold text-dark mb-1 fw-bold">Categories</h1>
-        <p class="text-muted small mb-0">Manage product categories, titles and descriptions.</p>
+        <h1 class="h3 font-weight-extrabold text-dark mb-0 fw-bold" style="letter-spacing:-0.5px;">Categories Management</h1>
+        <p class="text-muted small mb-0 mt-1">Manage, search, edit and organize product category catalog.</p>
     </div>
     <a href="${pageContext.request.contextPath}/admin/categories/create" class="btn btn-primary">
-        <i class="bi bi-plus-lg me-1"></i> Add Category
+        <i class="bi bi-plus-lg"></i> Add Category
     </a>
 </div>
 
@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-5 text-end">
                 <button type="submit" class="btn btn-primary me-1">
-                    Search
+                    Search Catalog
                 </button>
                 <c:if test="${not empty keyword}">
                     <a href="${pageContext.request.contextPath}/admin/categories" class="btn btn-light">
@@ -62,15 +62,15 @@
             </div>
         </form>
     </div>
-    
+
     <div class="card-body p-0">
         <c:choose>
             <c:when test="${empty categories}">
                 <div class="text-center py-5">
-                    <div class="stat-icon stat-icon-indigo mx-auto mb-3" style="width:56px; height:56px; font-size:1.5rem;">
+                    <div class="stat-icon-wrapper icon-gradient-indigo mx-auto mb-3" style="width:60px; height:60px; font-size:1.6rem; border-radius:18px;">
                         <i class="bi bi-inbox"></i>
                     </div>
-                    <h6 class="fw-semibold mb-1">No categories found</h6>
+                    <h6 class="fw-bold mb-1" style="font-size:1.1rem; color:#0f172a;">No categories found</h6>
                     <p class="text-muted small mb-3">Try refining your search keyword or create a new category.</p>
                     <a href="${pageContext.request.contextPath}/admin/categories/create" class="btn btn-primary btn-sm">
                         <i class="bi bi-plus-lg me-1"></i> Add Category
@@ -79,12 +79,12 @@
             </c:when>
             <c:otherwise>
                 <div class="table-responsive">
-                    <table class="table table-clean">
+                    <table class="table table-vip">
                         <thead>
                             <tr>
                                 <th width="60">#</th>
                                 <th width="80">ID</th>
-                                <th>Name</th>
+                                <th>Category Name</th>
                                 <th>Description</th>
                                 <th width="180">Created Date</th>
                                 <th width="120" class="text-end">Actions</th>
@@ -93,9 +93,9 @@
                         <tbody>
                             <c:forEach var="category" items="${categories}" varStatus="status">
                                 <tr>
-                                    <td class="text-muted">${currentPage * pageSize + status.index + 1}</td>
-                                    <td><span class="badge badge-soft-secondary">#${category.id}</span></td>
-                                    <td class="fw-semibold text-dark"><c:out value="${category.name}"/></td>
+                                    <td class="text-muted fw-bold">${currentPage * pageSize + status.index + 1}</td>
+                                    <td><span class="badge badge-vip-disabled">#${category.id}</span></td>
+                                    <td class="fw-bold text-dark"><c:out value="${category.name}"/></td>
                                     <td class="text-muted">
                                         <c:choose>
                                             <c:when test="${not empty category.description}">
@@ -104,7 +104,7 @@
                                             <c:otherwise><span class="text-muted fst-italic">—</span></c:otherwise>
                                         </c:choose>
                                     </td>
-                                    <td class="text-muted small">
+                                    <td class="text-muted small fw-semibold">
                                         <c:choose>
                                             <c:when test="${category.createdAt != null}">
                                                 ${category.createdAt.toString().replace('T', ' ').substring(0, 16)}
@@ -114,11 +114,11 @@
                                     </td>
                                     <td class="text-end">
                                         <a href="${pageContext.request.contextPath}/admin/categories/edit/${category.id}"
-                                           class="btn btn-sm btn-soft-primary me-1" title="Edit">
+                                           class="btn btn-sm btn-soft-primary me-1" title="Edit Category">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <button type="button" class="btn btn-sm btn-soft-danger"
-                                                title="Delete"
+                                                title="Delete Category"
                                                 onclick="confirmDelete('${pageContext.request.contextPath}/admin/categories/delete/${category.id}', '<c:out value="${category.name}"/>')">
                                             <i class="bi bi-trash"></i>
                                         </button>
@@ -131,7 +131,7 @@
 
                 <!-- Pagination Footer -->
                 <div class="p-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
-                    <small class="text-muted">
+                    <small class="text-muted fw-semibold">
                         Showing <strong>${currentPage * pageSize + 1}</strong> to <strong>${(currentPage + 1) * pageSize > totalElements ? totalElements : (currentPage + 1) * pageSize}</strong> of <strong>${totalElements}</strong> categories
                     </small>
                     <c:if test="${totalPages > 1}">
@@ -171,9 +171,9 @@
 <!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 14px;">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
             <div class="modal-header border-0 pb-0">
-                <h5 class="modal-title fw-bold text-dark">Confirm Delete</h5>
+                <h5 class="modal-title fw-bold text-dark"><i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Confirm Delete</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body py-3">

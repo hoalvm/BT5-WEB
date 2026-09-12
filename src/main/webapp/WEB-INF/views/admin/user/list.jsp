@@ -7,14 +7,14 @@
 </head>
 <body>
 
-<!-- Page Header -->
-<div class="d-flex justify-content-between align-items-center mb-4">
+<!-- Header Banner -->
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
     <div>
-        <h1 class="h4 font-weight-bold text-dark mb-1 fw-bold">User Management</h1>
-        <p class="text-muted small mb-0">Manage system users, assigned security roles, and account statuses.</p>
+        <h1 class="h3 font-weight-extrabold text-dark mb-0 fw-bold" style="letter-spacing:-0.5px;">User Access Directory</h1>
+        <p class="text-muted small mb-0 mt-1">Manage system administrator and user accounts, roles and security state.</p>
     </div>
     <a href="${pageContext.request.contextPath}/admin/users/create" class="btn btn-primary">
-        <i class="bi bi-person-plus me-1"></i> Add User
+        <i class="bi bi-person-plus-fill"></i> Add User
     </a>
 </div>
 
@@ -40,7 +40,7 @@
                 <div class="input-group">
                     <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
                     <input type="text" class="form-control border-start-0 ps-0" id="keyword" name="keyword"
-                           placeholder="Search by username, full name, or email..." value="${keyword}">
+                           placeholder="Search username, full name, or email..." value="${keyword}">
                 </div>
             </div>
             <div class="col-md-2">
@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-5 text-end">
                 <button type="submit" class="btn btn-primary me-1">
-                    Search
+                    Search Users
                 </button>
                 <c:if test="${not empty keyword}">
                     <a href="${pageContext.request.contextPath}/admin/users" class="btn btn-light">
@@ -67,27 +67,27 @@
         <c:choose>
             <c:when test="${empty users}">
                 <div class="text-center py-5">
-                    <div class="stat-icon stat-icon-emerald mx-auto mb-3" style="width:56px; height:56px; font-size:1.5rem;">
+                    <div class="stat-icon-wrapper icon-gradient-emerald mx-auto mb-3" style="width:60px; height:60px; font-size:1.6rem; border-radius:18px;">
                         <i class="bi bi-people"></i>
                     </div>
-                    <h6 class="fw-semibold mb-1">No users found</h6>
+                    <h6 class="fw-bold mb-1" style="font-size:1.1rem; color:#0f172a;">No users found</h6>
                     <p class="text-muted small mb-3">Try refining your search keyword or create a new user account.</p>
                     <a href="${pageContext.request.contextPath}/admin/users/create" class="btn btn-primary btn-sm">
-                        <i class="bi bi-person-plus me-1"></i> Add User
+                        <i class="bi bi-person-plus-fill me-1"></i> Add User
                     </a>
                 </div>
             </c:when>
             <c:otherwise>
                 <div class="table-responsive">
-                    <table class="table table-clean">
+                    <table class="table table-vip">
                         <thead>
                             <tr>
-                                <th width="50">#</th>
+                                <th width="60">#</th>
                                 <th width="70">ID</th>
                                 <th>User Profile</th>
                                 <th>Email</th>
-                                <th>Roles</th>
-                                <th width="110">Status</th>
+                                <th>Assigned Roles</th>
+                                <th width="120">Security State</th>
                                 <th width="160">Created Date</th>
                                 <th width="110" class="text-end">Actions</th>
                             </tr>
@@ -95,29 +95,29 @@
                         <tbody>
                             <c:forEach var="user" items="${users}" varStatus="status">
                                 <tr>
-                                    <td class="text-muted">${currentPage * pageSize + status.index + 1}</td>
-                                    <td><span class="badge badge-soft-secondary">#${user.id}</span></td>
+                                    <td class="text-muted fw-bold">${currentPage * pageSize + status.index + 1}</td>
+                                    <td><span class="badge badge-vip-disabled">#${user.id}</span></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar-circle me-2 font-weight-bold" 
-                                                 style="width:34px; height:34px; border-radius:50%; background:#eef2ff; color:#4f46e5; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem;">
+                                                 style="width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color:#ffffff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.95rem; box-shadow:0 4px 10px rgba(99, 102, 241, 0.25);">
                                                 <c:out value="${user.username.substring(0, 1).toUpperCase()}"/>
                                             </div>
                                             <div>
-                                                <div class="fw-semibold text-dark"><c:out value="${user.fullName}"/></div>
-                                                <small class="text-muted">@<c:out value="${user.username}"/></small>
+                                                <div class="fw-bold text-dark"><c:out value="${user.fullName}"/></div>
+                                                <small class="text-muted fw-semibold">@<c:out value="${user.username}"/></small>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-muted"><c:out value="${user.email}"/></td>
+                                    <td class="text-muted fw-semibold"><c:out value="${user.email}"/></td>
                                     <td>
                                         <c:forEach var="role" items="${user.roles}">
                                             <c:choose>
                                                 <c:when test="${role.name == 'ROLE_ADMIN'}">
-                                                    <span class="badge badge-soft-primary me-1">${role.name}</span>
+                                                    <span class="badge badge-vip-admin me-1">${role.name}</span>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <span class="badge badge-soft-secondary me-1">${role.name}</span>
+                                                    <span class="badge badge-vip-user me-1">${role.name}</span>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
@@ -125,14 +125,14 @@
                                     <td>
                                         <c:choose>
                                             <c:when test="${user.enabled}">
-                                                <span class="badge badge-soft-success">Active</span>
+                                                <span class="badge badge-vip-active">Active</span>
                                             </c:when>
                                             <c:otherwise>
-                                                <span class="badge badge-soft-secondary">Disabled</span>
+                                                <span class="badge badge-vip-disabled">Disabled</span>
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
-                                    <td class="text-muted small">
+                                    <td class="text-muted small fw-semibold">
                                         ${user.createdAt != null ? user.createdAt.toString().replace('T', ' ').substring(0, 16) : '—'}
                                     </td>
                                     <td class="text-end">
@@ -154,7 +154,7 @@
 
                 <!-- Pagination Footer -->
                 <div class="p-3 border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
-                    <small class="text-muted">
+                    <small class="text-muted fw-semibold">
                         Showing <strong>${currentPage * pageSize + 1}</strong> to <strong>${(currentPage + 1) * pageSize > totalElements ? totalElements : (currentPage + 1) * pageSize}</strong> of <strong>${totalElements}</strong> users
                     </small>
                     <c:if test="${totalPages > 1}">
@@ -194,9 +194,9 @@
 <!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 14px;">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
             <div class="modal-header border-0 pb-0">
-                <h5 class="modal-title fw-bold text-dark">Confirm Delete</h5>
+                <h5 class="modal-title fw-bold text-dark"><i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Confirm Delete</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body py-3">

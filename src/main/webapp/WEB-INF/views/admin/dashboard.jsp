@@ -5,109 +5,140 @@
     <title>Dashboard</title>
 </head>
 <body>
-<div class="d-flex justify-content-between align-items-center mb-4">
+
+<!-- Header Banner -->
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
     <div>
-        <h1 class="h4 font-weight-bold text-dark mb-1 fw-bold">Dashboard Overview</h1>
-        <p class="text-muted small mb-0">System performance, category counts and user overview.</p>
+        <div class="d-flex align-items-center gap-2">
+            <h1 class="h3 font-weight-extrabold text-dark mb-0 fw-bold" style="letter-spacing:-0.5px;">Control Center</h1>
+            <span class="badge bg-primary text-white px-2 py-1 rounded-pill small fw-bold" style="font-size:0.7rem; background: var(--primary-gradient) !important;">VIP PRO</span>
+        </div>
+        <p class="text-muted small mb-0 mt-1">Real-time system overview, statistics and administration controls.</p>
     </div>
-    <div>
-        <a href="${pageContext.request.contextPath}/admin/categories/create" class="btn btn-primary btn-sm me-2">
-            <i class="bi bi-plus-lg me-1"></i> New Category
+    <div class="d-flex gap-2">
+        <a href="${pageContext.request.contextPath}/admin/categories/create" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> New Category
         </a>
-        <a href="${pageContext.request.contextPath}/admin/users/create" class="btn btn-light btn-sm">
-            <i class="bi bi-person-plus me-1"></i> New User
+        <a href="${pageContext.request.contextPath}/admin/users/create" class="btn btn-light">
+            <i class="bi bi-person-plus-fill"></i> New User
         </a>
     </div>
 </div>
 
-<!-- Stats Cards -->
+<!-- VIP Stat Cards -->
 <div class="row g-3 mb-4">
     <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted small fw-semibold text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Categories</span>
-                <div class="stat-icon stat-icon-indigo">
-                    <i class="bi bi-folder2-open"></i>
+        <div class="stat-card-vip">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Categories</span>
+                    <h2 class="fw-extrabold mb-0 mt-1" style="font-size: 2rem; color: #0f172a;">${categoryCount}</h2>
+                </div>
+                <div class="stat-icon-wrapper icon-gradient-indigo">
+                    <i class="bi bi-tags-fill"></i>
                 </div>
             </div>
-            <h3 class="fw-bold mb-1" style="color: #0f172a;">${categoryCount}</h3>
-            <a href="${pageContext.request.contextPath}/admin/categories" class="text-decoration-none small text-primary fw-medium">
-                Manage categories <i class="bi bi-arrow-right"></i>
-            </a>
+            <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                <span class="stat-trend-badge trend-up">
+                    <i class="bi bi-graph-up-arrow"></i> Active DB
+                </span>
+                <a href="${pageContext.request.contextPath}/admin/categories" class="text-decoration-none small text-primary fw-bold">
+                    Manage <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
         </div>
     </div>
 
     <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted small fw-semibold text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Total Users</span>
-                <div class="stat-icon stat-icon-emerald">
-                    <i class="bi bi-people"></i>
+        <div class="stat-card-vip">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Total Accounts</span>
+                    <h2 class="fw-extrabold mb-0 mt-1" style="font-size: 2rem; color: #0f172a;">${userCount}</h2>
+                </div>
+                <div class="stat-icon-wrapper icon-gradient-emerald">
+                    <i class="bi bi-people-fill"></i>
                 </div>
             </div>
-            <h3 class="fw-bold mb-1" style="color: #0f172a;">${userCount}</h3>
-            <a href="${pageContext.request.contextPath}/admin/users" class="text-decoration-none small text-success fw-medium">
-                Manage users <i class="bi bi-arrow-right"></i>
-            </a>
+            <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                <span class="stat-trend-badge trend-up">
+                    <i class="bi bi-shield-check"></i> Encrypted
+                </span>
+                <a href="${pageContext.request.contextPath}/admin/users" class="text-decoration-none small text-success fw-bold">
+                    Manage <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
         </div>
     </div>
 
     <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted small fw-semibold text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">System Status</span>
-                <div class="stat-icon stat-icon-sky">
-                    <i class="bi bi-shield-check"></i>
+        <div class="stat-card-vip">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">System Health</span>
+                    <h2 class="fw-extrabold mb-0 mt-1 text-success" style="font-size: 1.5rem;">Optimal</h2>
+                </div>
+                <div class="stat-icon-wrapper icon-gradient-sky">
+                    <i class="bi bi-cpu-fill"></i>
                 </div>
             </div>
-            <h3 class="fw-bold mb-1 text-success" style="font-size: 1.25rem;">Active</h3>
-            <span class="text-muted small">Role: ROLE_ADMIN</span>
+            <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                <span class="stat-trend-badge trend-live">
+                    <i class="bi bi-activity"></i> 100% Uptime
+                </span>
+                <span class="text-muted small fw-semibold">Port 8080</span>
+            </div>
         </div>
     </div>
 
     <div class="col-xl-3 col-md-6">
-        <div class="stat-card">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted small fw-semibold text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Environment</span>
-                <div class="stat-icon stat-icon-amber">
-                    <i class="bi bi-cpu"></i>
+        <div class="stat-card-vip">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                    <span class="text-muted small fw-bold text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Runtime Engine</span>
+                    <h2 class="fw-extrabold mb-0 mt-1" style="font-size: 1.4rem; color: #0f172a;">Java 25</h2>
+                </div>
+                <div class="stat-icon-wrapper icon-gradient-amber">
+                    <i class="bi bi-boxes"></i>
                 </div>
             </div>
-            <h3 class="fw-bold mb-1" style="color: #0f172a; font-size: 1.15rem;">Java 25</h3>
-            <span class="text-muted small">Spring Boot 4.x / WAR</span>
+            <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                <span class="text-muted small fw-semibold">Spring Boot 4.x</span>
+                <span class="badge badge-vip-active">WAR Build</span>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Quick Overview Panels -->
+<!-- Management Shortcuts & System Info -->
 <div class="row g-3">
     <div class="col-md-6">
         <div class="card h-100">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="card-title mb-0">Quick Management</h5>
+            <div class="card-header bg-white d-flex align-items-center justify-content-between">
+                <h5 class="card-title mb-0"><i class="bi bi-rocket-takeoff-fill text-primary me-2"></i>Quick Management Modules</h5>
             </div>
             <div class="card-body">
                 <div class="list-group list-group-flush">
                     <a href="${pageContext.request.contextPath}/admin/categories" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center px-0 py-3 border-bottom">
                         <div class="d-flex align-items-center">
-                            <div class="stat-icon stat-icon-indigo me-3" style="width:36px; height:36px; font-size:1rem;">
-                                <i class="bi bi-tag"></i>
+                            <div class="stat-icon-wrapper icon-gradient-indigo me-3" style="width:40px; height:40px; font-size:1.1rem;">
+                                <i class="bi bi-tags"></i>
                             </div>
                             <div>
-                                <h6 class="mb-0 fw-semibold">Category Directory</h6>
-                                <small class="text-muted">Create, update or delete product categories</small>
+                                <h6 class="mb-0 fw-bold">Categories Directory</h6>
+                                <small class="text-muted">Create, edit, search and delete product categories</small>
                             </div>
                         </div>
                         <i class="bi bi-chevron-right text-muted"></i>
                     </a>
                     <a href="${pageContext.request.contextPath}/admin/users" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center px-0 py-3">
                         <div class="d-flex align-items-center">
-                            <div class="stat-icon stat-icon-emerald me-3" style="width:36px; height:36px; font-size:1rem;">
+                            <div class="stat-icon-wrapper icon-gradient-emerald me-3" style="width:40px; height:40px; font-size:1.1rem;">
                                 <i class="bi bi-person-gear"></i>
                             </div>
                             <div>
-                                <h6 class="mb-0 fw-semibold">User Access Control</h6>
-                                <small class="text-muted">Manage system users, roles and passwords</small>
+                                <h6 class="mb-0 fw-bold">User Directory & Permissions</h6>
+                                <small class="text-muted">Manage user roles, credentials and security active state</small>
                             </div>
                         </div>
                         <i class="bi bi-chevron-right text-muted"></i>
@@ -119,27 +150,27 @@
 
     <div class="col-md-6">
         <div class="card h-100">
-            <div class="card-header">
-                <h5 class="card-title mb-0">System Architecture</h5>
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0"><i class="bi bi-layers-fill text-info me-2"></i>Enterprise Tech Stack</h5>
             </div>
             <div class="card-body p-0">
-                <table class="table table-clean mb-0">
+                <table class="table table-vip mb-0">
                     <tbody>
                         <tr>
-                            <td class="text-muted fw-medium">Framework</td>
-                            <td class="fw-semibold text-end">Spring Boot 4.x (WAR)</td>
+                            <td class="text-muted fw-semibold">Framework Core</td>
+                            <td class="fw-bold text-end text-dark">Spring Boot 4.x (WAR Packaging)</td>
                         </tr>
                         <tr>
-                            <td class="text-muted fw-medium">Security</td>
-                            <td class="fw-semibold text-end">Spring Security 7 + BCrypt</td>
+                            <td class="text-muted fw-semibold">Security Model</td>
+                            <td class="fw-bold text-end text-dark">Spring Security 7 + BCrypt Hashing</td>
                         </tr>
                         <tr>
-                            <td class="text-muted fw-medium">Persistence</td>
-                            <td class="fw-semibold text-end">Spring Data JPA / MySQL</td>
+                            <td class="text-muted fw-semibold">Database Persistence</td>
+                            <td class="fw-bold text-end text-dark">Spring Data JPA / MySQL 8</td>
                         </tr>
                         <tr>
-                            <td class="text-muted fw-medium">View Engine</td>
-                            <td class="fw-semibold text-end">JSP + SiteMesh 3 Decorator</td>
+                            <td class="text-muted fw-semibold">Layout Decorator</td>
+                            <td class="fw-bold text-end text-dark">SiteMesh 3 + Jakarta JSTL</td>
                         </tr>
                     </tbody>
                 </table>
@@ -147,5 +178,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

@@ -6,20 +6,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><sitemesh:write property='title'/> | Admin Portal</title>
+    <title><sitemesh:write property='title'/> | VIP Admin Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/admin.css" rel="stylesheet">
     <sitemesh:write property='head'/>
 </head>
-<body class="d-flex flex-column" style="min-height:100vh;">
+<body class="d-flex flex-column">
 
 <!-- Top Navbar -->
 <nav class="navbar navbar-expand-lg admin-navbar fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand me-4" href="${pageContext.request.contextPath}/admin/dashboard">
-            <span class="brand-badge"><i class="bi bi-layers-fill"></i></span>
-            <span>AdminPortal</span>
+            <span class="brand-badge"><i class="bi bi-shield-lock-fill"></i></span>
+            <span>Admin<span class="text-primary">PRO</span></span>
         </a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -30,7 +30,8 @@
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item me-3">
                     <span class="nav-user-badge">
-                        <i class="bi bi-person-fill text-muted"></i>
+                        <span class="user-avatar-dot"></span>
+                        <i class="bi bi-person-circle text-primary me-1"></i>
                         <span>${pageContext.request.userPrincipal != null ? pageContext.request.userPrincipal.name : 'Administrator'}</span>
                     </span>
                 </li>
@@ -50,27 +51,27 @@
 <div class="d-flex" style="flex:1;">
     <!-- Sidebar -->
     <aside class="admin-sidebar" id="sidebar">
-        <span class="sidebar-label">Main Navigation</span>
+        <span class="sidebar-label">Main System</span>
         <ul class="nav flex-column mb-3">
             <li class="nav-item">
                 <a class="nav-link sidebar-link" href="${pageContext.request.contextPath}/admin/dashboard">
-                    <i class="bi bi-grid-1x2"></i>
+                    <i class="bi bi-grid-1x2-fill"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
         </ul>
 
-        <span class="sidebar-label">Management</span>
+        <span class="sidebar-label">Management Modules</span>
         <ul class="nav flex-column mb-4">
             <li class="nav-item">
                 <a class="nav-link sidebar-link" href="${pageContext.request.contextPath}/admin/categories">
-                    <i class="bi bi-folder2-open"></i>
+                    <i class="bi bi-tags-fill"></i>
                     <span>Categories</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link sidebar-link" href="${pageContext.request.contextPath}/admin/users">
-                    <i class="bi bi-people"></i>
+                    <i class="bi bi-people-fill"></i>
                     <span>Users</span>
                 </a>
             </li>
@@ -80,7 +81,7 @@
             <form action="${pageContext.request.contextPath}/logout" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit" class="nav-link sidebar-link text-danger border-0 bg-transparent w-100 text-start">
-                    <i class="bi bi-sign-out"></i>
+                    <i class="bi bi-box-arrow-left"></i>
                     <span>Logout</span>
                 </button>
             </form>
@@ -95,8 +96,8 @@
 
 <!-- Footer -->
 <footer class="admin-footer text-center">
-    <div class="container-fluid">
-        &copy; 2026 Admin Portal &bull; Clean & Modern Management Framework
+    <div class="container-fluid fw-semibold">
+        &copy; 2026 AdminPRO Portal &bull; Enterprise Spring Boot 4 + SiteMesh 3 Architecture
     </div>
 </footer>
 
