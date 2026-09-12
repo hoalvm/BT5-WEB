@@ -10,8 +10,8 @@
 <!-- Page Header -->
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h1 class="h4 font-weight-bold text-dark mb-1 fw-bold">User Directory</h1>
-        <p class="text-muted small mb-0">Manage system user accounts, assigned roles and access status.</p>
+        <h1 class="h4 font-weight-bold text-dark mb-1 fw-bold">User Management</h1>
+        <p class="text-muted small mb-0">Manage system users, assigned security roles, and account statuses.</p>
     </div>
     <a href="${pageContext.request.contextPath}/admin/users/create" class="btn btn-primary">
         <i class="bi bi-person-plus me-1"></i> Add User
@@ -40,7 +40,7 @@
                 <div class="input-group">
                     <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
                     <input type="text" class="form-control border-start-0 ps-0" id="keyword" name="keyword"
-                           placeholder="Search username, full name, or email..." value="${keyword}">
+                           placeholder="Search by username, full name, or email..." value="${keyword}">
                 </div>
             </div>
             <div class="col-md-2">
@@ -82,14 +82,14 @@
                     <table class="table table-clean">
                         <thead>
                             <tr>
-                                <th width="60">#</th>
-                                <th width="80">ID</th>
-                                <th>User Info</th>
+                                <th width="50">#</th>
+                                <th width="70">ID</th>
+                                <th>User Profile</th>
                                 <th>Email</th>
-                                <th>Role</th>
+                                <th>Roles</th>
                                 <th width="110">Status</th>
                                 <th width="160">Created Date</th>
-                                <th width="120" class="text-end">Actions</th>
+                                <th width="110" class="text-end">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,8 +98,16 @@
                                     <td class="text-muted">${currentPage * pageSize + status.index + 1}</td>
                                     <td><span class="badge badge-soft-secondary">#${user.id}</span></td>
                                     <td>
-                                        <div class="fw-semibold text-dark"><c:out value="${user.fullName}"/></div>
-                                        <small class="text-muted">@<c:out value="${user.username}"/></small>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-circle me-2 font-weight-bold" 
+                                                 style="width:34px; height:34px; border-radius:50%; background:#eef2ff; color:#4f46e5; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem;">
+                                                <c:out value="${user.username.substring(0, 1).toUpperCase()}"/>
+                                            </div>
+                                            <div>
+                                                <div class="fw-semibold text-dark"><c:out value="${user.fullName}"/></div>
+                                                <small class="text-muted">@<c:out value="${user.username}"/></small>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td class="text-muted"><c:out value="${user.email}"/></td>
                                     <td>
@@ -129,11 +137,11 @@
                                     </td>
                                     <td class="text-end">
                                         <a href="${pageContext.request.contextPath}/admin/users/edit/${user.id}"
-                                           class="btn btn-sm btn-soft-primary me-1" title="Edit">
+                                           class="btn btn-sm btn-soft-primary me-1" title="Edit User">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <button type="button" class="btn btn-sm btn-soft-danger"
-                                                title="Delete"
+                                                title="Delete User"
                                                 onclick="confirmDelete('${pageContext.request.contextPath}/admin/users/delete/${user.id}', '${user.username}')">
                                             <i class="bi bi-trash"></i>
                                         </button>
