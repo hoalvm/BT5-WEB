@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+    <!-- When Spring MVC forwards to admin JSPs, apply the admin decorator -->
+    <mapping path="/WEB-INF/views/admin/*" decorator="/WEB-INF/views/decorators/admin.jsp"/>
+    
+    <!-- Explicitly exclude decorator from being decorated (prevent infinite loops) -->
+    <mapping path="/WEB-INF/views/decorators/*" decorator="none"/>
+    
+    <!-- Auth pages don't need decorator -->
+    <mapping path="/WEB-INF/views/auth/*" decorator="none"/>
+</sitemesh>
